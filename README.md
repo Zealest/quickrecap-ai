@@ -32,4 +32,4 @@ Pour utiliser QuickRecap avec l'extension ChatGPT, suivez ces étapes :
 
 
 
-Copyright (c) 2023 Damien Mérian, James Dumaine, Raphaël Baron - ECV Digital Bordeaux
+<sub>Copyright (c) 2023 Damien Mérian, James Dumaine, Raphaël Baron - ECV Digital Bordeaux</sub>
