@@ -7,7 +7,7 @@ var __webpack_exports__ = {};
 
 
 console.log("connected...");
-const onInstallURL = "https://glasp.co/youtube-summary";
+const onInstallURL = "https://github.com/Zealest/quickrecap-ai";
 
 // On Chrome Install
 chrome.runtime.onInstalled.addListener(function (details) {
