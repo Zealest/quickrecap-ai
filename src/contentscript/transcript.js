@@ -146,9 +146,9 @@ export async function getTranscriptHTML(link, videoId) {
   return Array.from(scriptObjArr).map(obj => {
       const t = Math.round(obj.start);
       const hhmmss = convertIntToHms(t);
-      return  `<div class="yt_ai_summary_transcript_text_segment">
-                  <div><a class="yt_ai_summary_transcript_text_timestamp" style="padding-top: 16px !important;" href="/watch?v=${videoId}&t=${t}s" target="_blank" data-timestamp-href="/watch?v=${videoId}&t=${t}s" data-start-time="${t}">${hhmmss}</a></div>
-                  <div class="yt_ai_summary_transcript_text" data-start-time="${t}">${obj.text}</div>
+      return  `<div class="quickrecap_transcript_text_segment">
+                  <div><a class="quickrecap_transcript_text_timestamp" style="padding-top: 16px !important;" href="/watch?v=${videoId}&t=${t}s" target="_blank" data-timestamp-href="/watch?v=${videoId}&t=${t}s" data-start-time="${t}">${hhmmss}</a></div>
+                  <div class="quickrecap_transcript_text" data-start-time="${t}">${obj.text}</div>
               </div>`
   }).join("");
 
