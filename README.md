@@ -27,3 +27,9 @@ Pour utiliser QuickRecap avec l'extension ChatGPT, suivez ces étapes :
 
 - D'après OpenAI, ChatGPT connaît une demande de requêtes très élevée. Ils travaillent sur la mise à l'échelle de leurs systèmes mais je ne peux pas garantir que ChatGPT reste gratuit et ouvert pour toujours.
 - Ce code récupère manuellement les transcriptions des vidéos YouTube.
+
+
+
+
+
+Copyright (c) 2023 Damien Mérian, James Dumaine, Raphaël Baron - ECV Digital Bordeaux
