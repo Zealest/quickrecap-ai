@@ -9,8 +9,8 @@ import { copyTextToClipboard } from "./copy";
 export function insertSummaryBtn() {
 
     // Sanitize Transcript Div
-    if (document.querySelector("#yt_ai_summary_lang_select")) { document.querySelector("#yt_ai_summary_lang_select").innerHTML = ""; }
-    if (document.querySelector("#yt_ai_summary_summary")) { document.querySelector("#yt_ai_summary_summary").innerHTML = ""; }
+    if (document.querySelector("#quickrecap_lang_select")) { document.querySelector("#quickrecap_lang_select").innerHTML = ""; }
+    if (document.querySelector("#quickrecap_summary")) { document.querySelector("#quickrecap_summary").innerHTML = ""; }
     Array.from(document.getElementsByClassName("yt_ai_summary_container")).forEach(el => { el.remove(); });
 
     if (!getSearchParam(window.location.href).v) { return; }
@@ -18,7 +18,7 @@ export function insertSummaryBtn() {
     waitForElm('#secondary.style-scope.ytd-watch-flexy').then(() => {
 
         // Sanitize
-        Array.from(document.getElementsByClassName("yt_ai_summary_container")).forEach(el => { el.remove(); });
+        Array.from(document.getElementsByClassName("quickrecap_container")).forEach(el => { el.remove(); });
 
         // Place Script Div
         document.querySelector("#secondary.style-scope.ytd-watch-flexy").insertAdjacentHTML("afterbegin", `
@@ -68,31 +68,31 @@ export function insertSummaryBtn() {
         </div>`);
 
         // Event Listener: Hover Label
-        Array.from(document.getElementsByClassName("yt-summary-hover-el")).forEach(el => {
+        Array.from(document.getElementsByClassName("quickrecap-hover-el")).forEach(el => {
             const label = el.getAttribute("data-hover-label");
             if (!label) { return; }
             el.addEventListener("mouseenter", (e) => {
                 e.stopPropagation();
                 e.preventDefault();
-                Array.from(document.getElementsByClassName("yt_ai_summary_header_hover_label")).forEach(el => { el.remove(); })
+                Array.from(document.getElementsByClassName("quickrecap_header_hover_label")).forEach(el => { el.remove(); })
                 el.insertAdjacentHTML("beforeend", `<div class="yt_ai_summary_header_hover_label">${label.replace(/\n+/g, `<br />`)}</div>`);
             })
             el.addEventListener("mouseleave", (e) => {
                 e.stopPropagation();
                 e.preventDefault();
-                Array.from(document.getElementsByClassName("yt_ai_summary_header_hover_label")).forEach(el => { el.remove(); })
+                Array.from(document.getElementsByClassName("quickrecap_header_hover_label")).forEach(el => { el.remove(); })
             })
         })
 
         // Event Listener: Copy Transcript
-        document.querySelector("#yt_ai_summary_header_copy").addEventListener("click", (e) => {
+        document.querySelector("#quickrecap_header_copy").addEventListener("click", (e) => {
             e.stopPropagation();
             const videoId = getSearchParam(window.location.href).v;
             copyTranscript(videoId);
         })
 
         // Event Listener: AI Summary
-        document.querySelector("#yt_ai_summary_header_summary").addEventListener("click", (e) => {
+        document.querySelector("#quickrecap_header_summary").addEventListener("click", (e) => {
             e.stopPropagation();
             copyTranscriptAndPrompt();
             setTimeout(() => {
@@ -101,13 +101,13 @@ export function insertSummaryBtn() {
         })
 
         // Event Listener: Jump to Current Timestamp
-        document.querySelector("#yt_ai_summary_header_track").addEventListener("click", (e) => {
+        document.querySelector("#quickrecap_header_track").addEventListener("click", (e) => {
             e.stopPropagation();
             scrollIntoCurrTimeDiv();
         })
 
         // Event Listener: Toggle Transcript Body
-        document.querySelector("#yt_ai_summary_header").addEventListener("click", async (e) => {
+        document.querySelector("#quickrecap_header").addEventListener("click", async (e) => {
 
             const videoId = getSearchParam(window.location.href).v;
             sanitizeWidget();
@@ -124,7 +124,7 @@ export function insertSummaryBtn() {
 
             // Create Transcript HTML & Add Event Listener
             const transcriptHTML = await getTranscriptHTML(langOptionsWithLink[0].link, videoId);
-            document.querySelector("#yt_ai_summary_text").innerHTML = transcriptHTML;
+            document.querySelector("#quickrecap_text").innerHTML = transcriptHTML;
             evtListenerOnTimestamp();
 
             // Event Listener: Language Select Btn Click
@@ -138,30 +138,30 @@ export function insertSummaryBtn() {
 
 function sanitizeWidget() {
     // Sanitize Transcript Div
-    document.querySelector("#yt_ai_summary_lang_select").innerHTML = "";
-    document.querySelector("#yt_ai_summary_text").innerHTML = "";
+    document.querySelector("#quickrecap_lang_select").innerHTML = "";
+    document.querySelector("#quickrecap_text").innerHTML = "";
 
     // Height Adjust
-    document.querySelector("#yt_ai_summary_body").style.maxHeight = window.innerHeight - 160 + "px";
-    document.querySelector("#yt_ai_summary_text").innerHTML = `
+    document.querySelector("#quickrecap_body").style.maxHeight = window.innerHeight - 160 + "px";
+    document.querySelector("#quickrecap_text").innerHTML = `
     <svg class="yt_ai_summary_loading" style="display: block;width: 48px;margin: 40px auto;" width="48" height="48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M100 36C59.9995 36 37 66 37 99C37 132 61.9995 163.5 100 163.5C138 163.5 164 132 164 99" stroke="#5C94FF" stroke-width="6"/>
     </svg>`;
 
     // Toggle Class List
-    document.querySelector("#yt_ai_summary_body").classList.toggle("yt_ai_summary_body_show");
-    document.querySelector("#yt_ai_summary_header_copy").classList.toggle("yt_ai_summary_header_icon_show");
-    document.querySelector("#yt_ai_summary_header_summary").classList.toggle("yt_ai_summary_header_icon_show");
-    document.querySelector("#yt_ai_summary_header_track").classList.toggle("yt_ai_summary_header_icon_show");
-    document.querySelector("#yt_ai_summary_header_toggle").classList.toggle("yt_ai_summary_header_toggle_rotate");
+    document.querySelector("#quickrecap_body").classList.toggle("quickrecap_body_show");
+    document.querySelector("#quickrecap_header_copy").classList.toggle("quickrecap_header_icon_show");
+    document.querySelector("#quickrecap_header_summary").classList.toggle("quickrecap_header_icon_show");
+    document.querySelector("#quickrecap_header_track").classList.toggle("quickrecap_header_icon_show");
+    document.querySelector("#quickrecap_header_toggle").classList.toggle("quickrecap_header_toggle_rotate");
 }
 
 function isWidgetOpen() {
-    return document.querySelector("#yt_ai_summary_body").classList.contains("yt_ai_summary_body_show");
+    return document.querySelector("#quickrecap_body").classList.contains("quickrecap_body_show");
 }
 
 function noTranscriptionAlert() {
-    document.querySelector("#yt_ai_summary_text").innerHTML = `
+    document.querySelector("#quickrecap_text").innerHTML = `
         <div style="margin: 40px auto;text-align: center;">
             <p>No Transcription Available... 😢</p>
             <p>Try <a href="https://huggingface.co/spaces/jeffistyping/Youtube-Whisperer" target="_blank">Huggingface Youtube Whisperer</a> to transcribe!</p>
@@ -170,24 +170,24 @@ function noTranscriptionAlert() {
 }
 
 function createLangSelectBtns(langOptionsWithLink) {
-    document.querySelector("#yt_ai_summary_lang_select").innerHTML = Array.from(langOptionsWithLink).map((langOption, index) => {
-        return `<button class="yt_ai_summary_lang ${(index == 0) ? "yt_ai_summary_lange_selected" : ""}" data-yt-transcript-lang="${langOption.language}">${langOption.language}</button>`;
+    document.querySelector("#quickrecap_lang_select").innerHTML = Array.from(langOptionsWithLink).map((langOption, index) => {
+        return `<button class="yt_ai_summary_lang ${(index == 0) ? "quickrecap_lange_selected" : ""}" data-yt-transcript-lang="${langOption.language}">${langOption.language}</button>`;
     }).join("");
 }
 
 function evtListenerOnLangBtns(langOptionsWithLink, videoId) {
-    Array.from(document.getElementsByClassName("yt_ai_summary_lang")).forEach((langBtn) => {
+    Array.from(document.getElementsByClassName("quickrecap_lang")).forEach((langBtn) => {
         langBtn.addEventListener("click", async (e) => {
             const lang = e.target.getAttribute("data-yt-transcript-lang");
             const targetBtn = document.querySelector(`.yt_ai_summary_lang[data-yt-transcript-lang="${lang}"]`);
             const link = langOptionsWithLink.find((langOption) => langOption.language === lang).link;
             // Create Transcript HTML & Event Listener
             const transcriptHTML = await getTranscriptHTML(link, videoId);
-            document.querySelector("#yt_ai_summary_text").innerHTML = transcriptHTML;
+            document.querySelector("#quickrecap_text").innerHTML = transcriptHTML;
             evtListenerOnTimestamp()
-            targetBtn.classList.add("yt_ai_summary_lange_selected");
-            Array.from(document.getElementsByClassName("yt_ai_summary_lang")).forEach((langBtn) => {
-                if (langBtn !== targetBtn) { langBtn.classList.remove("yt_ai_summary_lange_selected"); }
+            targetBtn.classList.add("quickrecap_lange_selected");
+            Array.from(document.getElementsByClassName("quickrecap_lang")).forEach((langBtn) => {
+                if (langBtn !== targetBtn) { langBtn.classList.remove("quickrecap_lange_selected"); }
             })
         })
     })
@@ -203,18 +203,18 @@ function getTYEndTime() {
 
 function scrollIntoCurrTimeDiv() {
     const currTime = getTYCurrentTime();
-    Array.from(document.getElementsByClassName("yt_ai_summary_transcript_text_timestamp")).forEach((el, i, arr) => {
+    Array.from(document.getElementsByClassName("quickrecap_transcript_text_timestamp")).forEach((el, i, arr) => {
         const startTimeOfEl = el.getAttribute("data-start-time");
         const startTimeOfNextEl = (i === arr.length-1) ? getTYEndTime() : arr[i+1].getAttribute("data-start-time") ?? 0;
         if (currTime >= startTimeOfEl && currTime < startTimeOfNextEl) {
             el.scrollIntoView({ behavior: 'auto', block: 'start' });
-            document.querySelector("#secondary > div.yt_ai_summary_container").scrollIntoView({ behavior: 'auto', block: 'end' });
+            document.querySelector("#secondary > div.quickrecap_container").scrollIntoView({ behavior: 'auto', block: 'end' });
         }
     })
 }
 
 function evtListenerOnTimestamp() {
-    Array.from(document.getElementsByClassName("yt_ai_summary_transcript_text_timestamp")).forEach(el => {
+    Array.from(document.getElementsByClassName("quickrecap_transcript_text_timestamp")).forEach(el => {
         el.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -233,19 +233,19 @@ function copyTranscript(videoId) {
     contentBody += `${url}\n`;
     contentBody += `![](${url})\n`;
     contentBody += `## Transcript:\n`;
-    Array.from(document.getElementById("yt_ai_summary_text").children).forEach(el => {
+    Array.from(document.getElementById("quickrecap_text").children).forEach(el => {
         if (!el) { return; }
         if (el.children.length < 2) { return; }
-        const timestamp = el.querySelector(".yt_ai_summary_transcript_text_timestamp").innerText;
-        const timestampHref = el.querySelector(".yt_ai_summary_transcript_text_timestamp").getAttribute("data-timestamp-href");
-        const text = el.querySelector(".yt_ai_summary_transcript_text").innerText;
+        const timestamp = el.querySelector(".quickrecap_transcript_text_timestamp").innerText;
+        const timestampHref = el.querySelector(".quickrecap_text_timestamp").getAttribute("data-timestamp-href");
+        const text = el.querySelector(".quickrecap_transcript_text").innerText;
         contentBody += `- ([${timestamp}](${`https://www.youtube.com${timestampHref}`})) ${text}\n`;
     })
     copyTextToClipboard(contentBody);
 }
 
 function copyTranscriptAndPrompt() {
-    const textEls = document.getElementsByClassName("yt_ai_summary_transcript_text");
+    const textEls = document.getElementsByClassName("quickrecap_transcript_text");
     const text = Array.from(textEls).map((textEl) => { return textEl.textContent.trim(); }).join(" ");
     const prompt = getSummaryPrompt(text);
     copyTextToClipboard(prompt);
