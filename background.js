@@ -1,7 +1,7 @@
 "use strict";
 
 console.log("connected...");
-const onInstallURL = "https://glasp.co/youtube-summary";
+const onInstallURL = "";
 
 // On Chrome Install
 chrome.runtime.onInstalled.addListener(function (details) {
