@@ -1,8 +1,8 @@
 {
-  "name": "YouTube Summary with ChatGPT",
+  "name": "QuickRecapAI",
   "version": "1.0.0",
   "manifest_version": 3,
-  "description": "Use ChatGPT to summarize YouTube videos",
+  "description": "Utiliser ChatGPT pour résumer n'importe quelle vidéo YouTube",
   "background": {
     "service_worker": "background.bundle.js",
     "type": "module"
@@ -16,7 +16,7 @@
     {
       "matches": ["https://www.youtube.com/*", "https://chat.openai.com/*"],
       "js": ["contentscript/content.bundle.js"],
-      "css": ["contentscript/yt_ai_summary.css"],
+      "css": ["contentscript/quickrecap_ai.css"],
       "all_frames": false
     }
   ],
