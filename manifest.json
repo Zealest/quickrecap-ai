@@ -1,0 +1,29 @@
+{
+  "name": "QuickRecap AI",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "description": "Faire un résumé instantané de vos vidéos YouTube !",
+  "background": {
+    "service_worker": "dist/background.bundle.js",
+    "type": "module"
+  },
+  "action": {
+    "default_icon": {
+      "48": "dist/images/48.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*", "https://chat.openai.com/*"],
+      "js": ["dist/contentscript/content.bundle.js"],
+      "css": ["dist/contentscript/yt_ai_summary.css"],
+      "all_frames": false
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "icons": {
+    "48": "dist/images/48.png"
+  }
+}
