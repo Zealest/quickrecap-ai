@@ -18,7 +18,7 @@ Pour installer notre extension sur votre navigateur Chrome, suivez ces instructi
 Pour utiliser QuickRecap avec l'extension ChatGPT, suivez ces étapes :
 
 1. Allez sur n'importe quelle vidéo YouTube.
-2. Cliquez sur la petite case en haut à droite qui dit "Transcription et résumé".
+2. Cliquez sur la petite case en haut à droite qui dit "Transcription de la vidéo".
 3. Cliquez sur le bouton `Voir le résumé` (Il copie automatiquement l'entièreté du texte pour vous et ouvre une page ChatGPT !)
 4. Tapez `Cmd + V` pour coller.
 5. Vous verrez la magie qui s'opère !
